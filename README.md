@@ -3,10 +3,22 @@
 
 Base transformer for panto.
 
+```js
+const Transformer = require('panto-transformer');
+
+class CustomTransformer extends Transformer {
+    _transform(file) {
+        return Promise.resolve(panto.util.extend(file, {
+            content: 'This is inserted by cutsom transformer'
+        }));
+    }
+}
+```
+
 [npm-url]: https://npmjs.org/package/panto-transformer
 [downloads-image]: http://img.shields.io/npm/dm/panto-transformer.svg
 [npm-image]: http://img.shields.io/npm/v/panto-transformer.svg
-[david-dm-url]:https://david-dm.org/panto/panto-transformer
-[david-dm-image]:https://david-dm.org/panto/panto-transformer.svg
-[david-dm-dev-url]:https://david-dm.org/panto/panto-transformer#info=devDependencies
-[david-dm-dev-image]:https://david-dm.org/panto/panto-transformer/dev-status.svg
+[david-dm-url]:https://david-dm.org/pantojs/panto-transformer
+[david-dm-image]:https://david-dm.org/pantojs/panto-transformer.svg
+[david-dm-dev-url]:https://david-dm.org/pantojs/panto-transformer#info=devDependencies
+[david-dm-dev-image]:https://david-dm.org/pantojs/panto-transformer/dev-status.svg
