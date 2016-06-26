@@ -38,6 +38,44 @@ describe('panto-transformer', () => {
             assert.deepEqual(p.options.data, 0x0810);
         });
     });
+    describe('.options.isSkip', () => {
+        it('should support boolean', done => {
+            const file = {
+                filename: 'a.js'
+            };
+            new PantoTransformer({
+                isSkip: true
+            }).transform(file).then(tfile => {
+                assert.deepEqual(tfile, file);
+            }).then(() => {
+                done();
+            });
+        });
+        it('should support function', done => {
+            const file = {
+                filename: 'a.js'
+            };
+            new PantoTransformer({
+                isSkip: () => false
+            }).transform(file).then(tfile => {
+                assert.deepEqual(tfile, file);
+            }).then(() => {
+                done();
+            });
+        });
+        it('should support string', done => {
+            const file = {
+                filename: 'a.js'
+            };
+            new PantoTransformer({
+                isSkip: '*.js'
+            }).transform(file).then(tfile => {
+                assert.deepEqual(tfile, file);
+            }).then(() => {
+                done();
+            });
+        });
+    });
     describe('#transform', () => {
         it('should get origin if null', done => {
             new PantoTransformer().transform(null).then(file => {

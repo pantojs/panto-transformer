@@ -1,11 +1,11 @@
 {
   "name": "panto-transformer",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Base transformer for panto",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "panto": "0.0.6"
+    "panto": "0.0.9"
   },
   "scripts": {
     "test": "eslint index.js && mocha"
