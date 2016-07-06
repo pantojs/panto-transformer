@@ -5,15 +5,17 @@
  * changelog
  * 2016-06-21[19:30:48]:revised
  * 2016-06-26[12:38:57]:"isSkip" supports string/function 
+ * 2016-07-06[21:36:53]:add #isTorrential #transformAll
  *
  * @author yanni4night@gmail.com
- * @version 0.2.0
+ * @version 0.2.1
  * @since 0.1.0
  */
 'use strict';
 
 const defineFrozenProperty = require('define-frozen-property');
 
+/** Class representing a transformer */
 class Transformer {
     constructor(opt) {
         if (!panto._.isNil(opt) && !panto._.isPlainObject(opt)) {
@@ -22,6 +24,26 @@ class Transformer {
 
         defineFrozenProperty(this, 'options', panto._.extend({}, opt), true);
     }
+    /**
+     * If this transformer is torrential.
+     *
+     * Torrential means #transformAll will be called
+     * instead of #transform. You can use it make some
+     * special multiple-to-one transforming. Note that
+     * torrential makes increment transforming much slower.
+     * 
+     * @return {Boolean}
+     */
+    isTorrential() {
+        return false;
+    }
+    /**
+     * Transform some files, by default,
+     * it will call #transform for each file.
+     * 
+     * @param  {Array}
+     * @return {Promise}
+     */
     transformAll(files) {
         if (!Array.isArray(files)) {
             throw new Error(`files should be array, but it's ${files}`);
@@ -51,6 +73,12 @@ class Transformer {
 
         return this._transform(file);
     }
+    /**
+     * Overide this to transform a file.
+     * 
+     * @param  {Object}
+     * @return {Promise}
+     */
     _transform(file) {
         return Promise.resolve(file);
     }
