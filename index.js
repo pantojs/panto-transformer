@@ -7,26 +7,29 @@
  * 2016-06-26[12:38:57]:"isSkip" supports string/function 
  *
  * @author yanni4night@gmail.com
- * @version 0.1.4
+ * @version 0.2.0
  * @since 0.1.0
  */
 'use strict';
 
+const defineFrozenProperty = require('define-frozen-property');
+
 class Transformer {
     constructor(opt) {
-        if (!panto.util.isNil(opt) && !panto.util.isPlainObject(opt)) {
+        if (!panto._.isNil(opt) && !panto._.isPlainObject(opt)) {
             throw new Error(`A PLAIN OBJECT is required to construct a transformer`);
         }
 
-        Object.defineProperty(this, 'options', {
-            value: panto.util.extend({}, opt),
-            writable: false,
-            configurable: false,
-            enumerable: true
-        });
+        defineFrozenProperty(this, 'options', panto._.extend({}, opt), true);
+    }
+    transformAll(files) {
+        if (!Array.isArray(files)) {
+            throw new Error(`files should be array, but it's ${files}`);
+        }
+        return Promise.all(files.map(file => this.transform(file))).then(panto._.flattenDeep).then(panto._.filter);
     }
     transform(file) {
-        if (panto.util.isNil(file)) {
+        if (panto._.isNil(file)) {
             return Promise.resolve(file);
         }
 
@@ -36,11 +39,11 @@ class Transformer {
 
         if (true === isSkip) {
             return Promise.resolve(file);
-        } else if (panto.util.isFunction(isSkip)) {
+        } else if (panto._.isFunction(isSkip)) {
             if (isSkip.call(file, file)) {
                 return Promise.resolve(file);
             }
-        } else if (panto.util.isString(isSkip)) {
+        } else if (panto._.isString(isSkip)) {
             if (panto.file.match(file.filename, isSkip)) {
                 return Promise.resolve(file);
             }

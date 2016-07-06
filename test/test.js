@@ -6,8 +6,8 @@
  * 2016-06-24[10:35:29]:revised
  *
  * @author yanni4night@gmail.com
- * @version 1.0.0
- * @since 1.0.0
+ * @version 0.2.0
+ * @since 0.1.0
  */
 'use strict';
 const assert = require('assert');
@@ -97,6 +97,66 @@ describe('panto-transformer', () => {
                 assert.deepEqual(tfile, file);
                 done();
             });
+        });
+    });
+    describe('#transformAll', () => {
+        it('argument validation', () => {
+            assert.throws(() => {
+                new PantoTransformer().transformAll({});
+            });
+        });
+        it('all pass', done => {
+            const files = [{
+                filename: 'a.js'
+            }, {
+                filename: 'b.js'
+            }, {
+                filename: 'c.js'
+            }];
+            new PantoTransformer().transformAll(files).then(tfiles => {
+                assert.deepEqual(tfiles, files);
+            }).then(() => done());
+        });
+        it('falsity value filtered', done => {
+            const files = [null, {
+                filename: 'b.js'
+            }, {
+                filename: 'c.js'
+            }, NaN, 0, undefined];
+            new PantoTransformer().transformAll(files).then(tfiles => {
+                assert.deepEqual(tfiles, [{
+                    filename: 'b.js'
+                }, {
+                    filename: 'c.js'
+                }]);
+            }).then(() => done());
+        });
+        it('skip a.js', done => {
+            class TestTransformer extends PantoTransformer {
+                _transform(file) {
+                    return Promise.resolve(panto._.extend(file, {
+                        content: file.content + file.content
+                    }))
+                }
+            }
+            const files = [{
+                filename: 'a.js',
+                content: 'a'
+            }, {
+                filename: 'b.js',
+                content: 'b'
+            }];
+            new TestTransformer({
+                isSkip: 'a.js'
+            }).transformAll(files).then(tfiles => {
+                assert.deepEqual(tfiles, [{
+                    filename: 'a.js',
+                    content: 'a'
+                }, {
+                    filename: 'b.js',
+                    content: 'bb'
+                }]);
+            }).then(() => done());
         });
     });
 });
