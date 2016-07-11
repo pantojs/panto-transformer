@@ -44,5 +44,5 @@ new CustomTransformer({
 [david-dm-image]:https://david-dm.org/pantojs/panto-transformer.svg
 [david-dm-dev-url]:https://david-dm.org/pantojs/panto-transformer#info=devDependencies
 [david-dm-dev-image]:https://david-dm.org/pantojs/panto-transformer/dev-status.svg
-[coverage-image]:https://coveralls.io/repos/github/pantojs/panto-transformer/badge.svg?branch=master
-[coverage-url]:https://coveralls.io/github/pantojs/panto-transformer?branch=master
+[coveralls-image]:https://coveralls.io/repos/github/pantojs/panto-transformer/badge.svg?branch=master
+[coveralls-url]:https://coveralls.io/github/pantojs/panto-transformer?branch=master
