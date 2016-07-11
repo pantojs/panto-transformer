@@ -37,6 +37,12 @@ describe('panto-transformer', () => {
             });
             assert.deepEqual(p.options.data, 0x0810);
         });
+
+        it('should throw error if options is illegal', () => {
+            assert.throws(() => {
+                new PantoTransformer([]);
+            });
+        });
     });
     describe('.options.isSkip', () => {
         it('should support boolean', done => {
@@ -56,7 +62,7 @@ describe('panto-transformer', () => {
                 filename: 'a.js'
             };
             new PantoTransformer({
-                isSkip: () => false
+                isSkip: () => true
             }).transform(file).then(tfile => {
                 assert.deepEqual(tfile, file);
             }).then(() => {
@@ -157,6 +163,11 @@ describe('panto-transformer', () => {
                     content: 'bb'
                 }]);
             }).then(() => done());
+        });
+    });
+    describe('#isTorrential', () => {
+        it('should return false by default', () => {
+            assert.deepEqual(new PantoTransformer().isTorrential(), false);
         });
     });
 });
