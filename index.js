@@ -9,7 +9,7 @@
  * 2016-07-30[09:16:21]:add #isCacheable
  *
  * @author yanni4night@gmail.com
- * @version 0.2.3
+ * @version 0.2.4
  * @since 0.1.0
  */
 'use strict';
@@ -44,7 +44,7 @@ class Transformer {
      * @return {Boolean}
      */
     isCacheable() {
-        return true;
+        return !!this.options.isCacheable;
     }
     /**
      * Transform some files, by default,
@@ -75,7 +75,7 @@ class Transformer {
                 return Promise.resolve(file);
             }
         } else if (panto._.isString(isSkip)) {
-            if (panto.file.match(file.filename, isSkip)) {
+            if (panto.file.match(file.filename, isSkip).length) {
                 return Promise.resolve(file);
             }
         }

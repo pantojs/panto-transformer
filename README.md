@@ -33,12 +33,13 @@ new CustomTransformer({
 ## options
  - options: Object, options
  - options.isSkip: Boolean|Function|String|RegExp, if skip this transformer on the file
+ - options.isCacheable: Boolean, if is cacheable, used by isCacheable function by default
 
 ## apis
  - transformAll(array): Promise, call _transform_
  - transform(object): Promise, call _\_transform_
  - isTorrential(): Boolean, if torrential, default false
- - isCacheable(): Boolean, if cacheable, default true
+ - isCacheable(): Boolean, if cacheable, default equals options.isCacheable
 
 [npm-url]: https://npmjs.org/package/panto-transformer
 [downloads-image]: http://img.shields.io/npm/dm/panto-transformer.svg

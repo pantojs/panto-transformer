@@ -82,6 +82,13 @@ describe('panto-transformer', () => {
             });
         });
     });
+    describe('.options.isCacheable', () => {
+        it('used by isCacheable function', () => {
+            assert.deepEqual(new PantoTransformer({
+                isCacheable: false
+            }).isCacheable(), false);
+        });
+    });
     describe('#transform', () => {
         it('should get origin if null', done => {
             new PantoTransformer().transform(null).then(file => {
@@ -162,7 +169,7 @@ describe('panto-transformer', () => {
                     filename: 'b.js',
                     content: 'bb'
                 }]);
-            }).then(() => done());
+            }).then(() => done()).catch(e => console.error(e));
         });
     });
     describe('#isTorrential', () => {
