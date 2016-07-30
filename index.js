@@ -1,14 +1,15 @@
 /**
  * Copyright (C) 2016 pantojs.xyz
- * transformer.js
+ * index.js
  *
  * changelog
  * 2016-06-21[19:30:48]:revised
  * 2016-06-26[12:38:57]:"isSkip" supports string/function 
  * 2016-07-06[21:36:53]:add #isTorrential #transformAll
+ * 2016-07-30[09:16:21]:add #isCacheable
  *
  * @author yanni4night@gmail.com
- * @version 0.2.1
+ * @version 0.2.3
  * @since 0.1.0
  */
 'use strict';
@@ -36,6 +37,14 @@ class Transformer {
      */
     isTorrential() {
         return false;
+    }
+    /**
+     * If cacheable.
+     * 
+     * @return {Boolean}
+     */
+    isCacheable() {
+        return true;
     }
     /**
      * Transform some files, by default,
