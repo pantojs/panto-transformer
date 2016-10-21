@@ -9,7 +9,7 @@
  * 2016-07-30[09:16:21]:add #isCacheable
  *
  * @author yanni4night@gmail.com
- * @version 0.2.4
+ * @version 0.2.5
  * @since 0.1.0
  */
 'use strict';
